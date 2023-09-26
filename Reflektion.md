@@ -10,7 +10,7 @@ I detta dokument reflekterar jag kring hur jag har applicerat kunskapen från ka
 | | **Don't Pun** |
 | | Alla mina variabelnamn och metodnamn är skapade för att vara så tydliga och enkla som möjligt, det finns ingen "humor" eller internt lingo i min namngivning. |
 | **countWordsFrequencyAlphabeticalOrder()** | **Use Intention-Revealing Names** | 
-| Metodnamn på en metod som sorterar alla ord efter hur ofta de förekommer i texten | Det är inte helt tydligt om metoden endast sorterar orden efter hur ofta de förekommer i texten eller om de även returneras, vilket de gör i detta fall. |
+| Metodnamn på en metod som sorterar alla ord efter hur ofta de förekommer i texten | Det är inte helt tydligt att metoden både sorterar orden efter hur ofta de förekommer i texten samt returnerar resultatet. |
 | | **Use Searchable Names** |
 | | Metoden har ett långt namn, men det gör den mer sökbar istället för att t ex döpa den till ```countWrdFreqAlphOrder()```. |
 | | **Pick One Word per Concept** |
@@ -18,7 +18,7 @@ I detta dokument reflekterar jag kring hur jag har applicerat kunskapen från ka
 | **getLetterCountDifferenceBetweenOriginalAndUpdatedText()** | **Avoid Disinformation** |
 | Metodnamn på en metod som returnerar en sträng som förklarar skillnaden mellan original texten och den eventuella texten som har blivit ändrad | På metodnamnet låter det som att det kommer att returneras en siffra, men det returneras en sträng. Det blir otydligt för användaren av modulen. |
 | | **Use Pronounceable Names** |
-| | Metodnamnet går att enkelt att uttala till skillnad t ex ```getLtrCntDiffBtwnOrigAndUpdText()```. |
+| | Metodnamnet går att enkelt att uttala till skillnad från t ex ```getLtrCntDiffBtwnOrigAndUpdText()```. |
 | **replaceWordsWithTwoDifferentFormattings(wordToReplace, newWord)** | **Use Intention-Revealing Names** |
 | Metodnamn på en metod som ersätter alla ord som har någon av två olika formateringar | Metodnamnet är tydligt med att det ersätter ord. Däremot är det otydligt vilka formateringar som ersätts. Borde kanske ha delats upp till fler funktioner för att kunna göra namnet tydligare. |
 | | **Add Meaningful Context** |
@@ -46,7 +46,7 @@ Tidigare har jag givetvis lagt tid på att försöka hitta ett bra namn, men kan
 | **replaceWordsWithTwoDifferentFormattings(wordToReplace, newWord)** | 26 | **Don’t Repeat Yourself** |
 | | | I denna metod repeteras kod där både ```wordToReplace``` och ```newWord``` görs om till olika format och sen läggs in i en array. Detta hade kunnat göras via en egen metod som returnerar en array istället. |
 | | | **Function Arguments** |
-| | | Metoden har två argument (dyadic), vilket bör undvikas enligt boken. Jag hade kunnat skapa klassen ```Word``` och anropa två instanser av den istället, men jag ser inte riktigt poängen med det. Jag ser inte att det skulle vara så fel att använda två argument som författaren menar. |
+| | | Metoden har två argument (dyadic), vilket bör undvikas enligt boken. Jag hade kunnat skapa klassen ```Word``` och anropa två instanser av den istället, men har valt att behålla metoden på detta sätt. |
 | **getLetterCountDifferenceBetweenOriginalAndUpdatedText()** | 21 | **Small!** |
 | | | En funktion ska vara liten och en if-sats borde bara ha en rad med kod i sig, förslagsvis bestående av ett funktionsanrop. I denna funktion finns en if-sats som har ytterligare en if-sats inuti sig. Den inre if-satsen behöver inte ligger inuti den ytter if-satsen. Hela funktionen i sig kan även göras mindre, se nedan. |
 | | | **Do One Thing** |
@@ -56,21 +56,31 @@ Tidigare har jag givetvis lagt tid på att försöka hitta ett bra namn, men kan
 | **countNotEmptyLines()** | 12 | **Use Descriptive Names** |
 | | | Beskriver tydligt att den räknar alla rader som inte är tomma. Borde däremot ha hetat ```getNotEmptyLinesCount```. |
 | | | **Reading Code from Top to Bottom: The Stepdown Rule** |
-| | | Eftersom vissa av mina metoder anropar samma metod är det inte möjligt att göra koden läsbar från "top to bottom". Jag har därför valt att lägga de publika metoderna överst i bokstavsordning och därefter de privata metoderna i bokstavsordning. |
+| | | Eftersom vissa av mina metoder anropar samma metod är det inte möjligt att göra koden läsbar "from top to bottom". Jag har därför valt att lägga de publika metoderna överst i bokstavsordning och därefter de privata metoderna i bokstavsordning. |
 | | | **Function Arguments** |
 | | | Genom att använda det privata fältet ```this.#trimmedLines``` behöver inga argument användas i metoden (niladic). |
 | **countNonEmptyLinesWithoutJSComments()** | 12 | **Use Descriptive Names** |
-| | | Lite otydligt vad ```JSComments``` betyder om man inte vet vad JavaScript är, men de flesta (alla?) utvecklare bör känna till det. Metoden riktar sig inte heller specifikt mot JavaScript-kommentarer, utan räknar alla rader som inte är tomma samt rader inte som börjar med tecknena * eller /. Hade behövt delas upp i flera metoder för att kunna få bättre namn, men med relativt få kodrader känns det överflödigt. |
+| | | Lite otydligt vad ```JSComments``` betyder. Metoden riktar sig inte heller specifikt mot JavaScript-kommentarer, utan räknar alla rader som inte är tomma samt rader inte som börjar med tecknen * eller /. Hade behövt delas upp i flera metoder för att kunna få bättre namn, men med relativt få kodrader känns det överflödigt. |
 | | | **One Level of Abstraction per Function** |
 | | | Denna metod har två olika abstraktionsnivåer då if-satsen under vissa förutsättningar gör ett metodanrop ```this.#trimmedLines``` och övriga rader kod i metoden är på en lägre abstraktionsnivå. |
 | **countNotEmptyLines()** | 12 | **Don’t Repeat Yourself** |
-| | | Denna metod gör i stort sett samma sak som ```**countNonEmptyLinesWithoutJSComments()**``` och går därför emot DRY-principen. Dessa två metoder bör istället anropa en tredje metod med respektive logiskt uttryck som skiljer de två metoderna åt. |
+| | | Denna metod gör i stort sett samma sak som ```**countNonEmptyLinesWithoutJSComments()**``` och går därför emot DRY-principen. Dessa två metoder bör istället anropa en tredje metod som tar emot respektive logiskt uttryck (vilket är det som skiljer de två metoderna åt) som ett argument. |
 | | | **Have No Side Effects** |
-| | | Om arrayen ```this.#trimmedLines``` är tom anropas metoden ```this.#splitTextIntoTrimmedLines()``` som fyller arrayen med element. Det är en sidoeffekt som inte framgår av något av metodnamnen.
+| | | Om arrayen ```this.#trimmedLines``` är tom anropas metoden ```this.#splitTextIntoTrimmedLines()``` som fyller arrayen med element. Det är en sidoeffekt som inte framgår av något av metodnamnen. |
 
 ### Reflektioner kring kapitel 3  
 Den största behållningen från kapitel 3 är att funktionerna ska vara små. Som junior utvecklare ställer jag mig dock försiktigt skeptisk till hur bokens exempel drar detta till sin spets. Jag kan se hur det är lättare att både översätta modulen till ett annat språk samt att det gör modulen enklare att expandera, men jag anser inte att koden blir mer lättläst. Flödet i läsandet av koden bli mindre läsbar då jag upplever att det är svårt att komma ihåg hur anropet började. Större metoder, i viss utsträckning, är därför att föredra enligt mig, men jag ser absolut att det finns en poäng i att inte skriva metoder som är alldeles för stora. Efter att ha gjort denna laboration kommer jag ta för vana att försöka skriva mindre metoder som riktar sig mer mot att göra en sak, men inte till varje pris.
 
 Att inte blanda abstraktionsnivåer var något som jag inte hade tänkt på överhuvudtaget tidigare och där ställer jag mig också lite skeptisk, men då det går i linje med att en metod ska göra en sak kan jag köpa konceptet.
 
-Att det däremot skulle vara mindre önskvärt att ta emot argument i en metod hade jag svårt att förstå från början. Jag skapade därför först en vanlig modul, men övergick sedan till att göra om den till en klass där jag kunde spara olika privata fält som mina metoder kunde anropa utan att behöva ta emot argument varje gång. Endast fyra av mina sjutton publika metoder tar emot argument, vilket jag är nöjd med. Jag håller även med om att inte ta emot argument underlättar testningen och att det inte finns en risk att argument skickas in i fel format eller fel ordning. 
+Att det däremot skulle vara mindre önskvärt att ta emot argument i en metod hade jag svårt att förstå från början. Jag skapade därför först en vanlig modul, men övergick sedan till att göra om den till en klass där jag kunde spara olika privata fält som mina metoder kunde anropa utan att behöva ta emot argument varje gång. Endast fyra av mina sjutton publika metoder tar emot argument, vilket jag är nöjd med. Jag håller även med om att inte ta emot argument underlättar testningen och att det inte finns en risk att argument skickas in i fel format eller fel ordning.
+
+## Reflektion kring uppgiften
+Jag tycker att boken är väldigt intressant och pedagogiskt skriven. Det är även uppfriskande med en bok som har lite humor. 
+
+Koncepten fån kapitel 2 kändes enklast att ta in, troligtvis eftersom namngivning är enklare att ”ta på” än funktioner. Som jag redan har skrivit håller jag inte helt med om författarens syn på exakt hur små funktioner ska vara. Däremot kommer dessa två kapitel ha inverkan på hur jag namnger och skriver framtida funktioner.
+
+Eftersom jag hade läst i boken innan jag gjorde laborationen märkte jag att det som hade fastnat mest var att använda deskriptiva namn för både metoder och variabler samt att försöka skriva kortare metoder. Under reflektion av kodkvalitetskraven märkte jag dock att det fortfarande finns flera delar att arbeta vidare med, exempelvis *Use Intention-Revealing Names* och *Pick One Word per Concept*. Jag tycker även att det är svårt, och behöver lära mig mer kring, när det är rimligt att göra en metod mindre och när det blir kaka på kaka. En av mina privata metoder, ```getAndTrimSentences()```, har endast som uppgift att anropa två andra metoder, men eftersom dessa två metoder ska anropas i samma ordning från fyra andra metoder tog jag beslutet att göra ```getAndTrimSentences()``` till en metod. Det känns lite kaka på kaka, men det går i linje med DRY-principen.
+
+Då min klass blev förhållandevis stor i förhållande till kravet på antal publika metoder övervägde jag att bryta ut någon del av koden till en egen klass. Ett alternativ hade varit att göra en ```CodeAnalyzer``` som höll metoden ```countNonEmptyLinesWithoutJSComments()``` där jag även hade kunnat skapa metoder som inriktade sig mer på att analysera kod.
+ 
