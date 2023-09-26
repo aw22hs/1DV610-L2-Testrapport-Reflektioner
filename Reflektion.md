@@ -75,7 +75,7 @@ Att inte blanda abstraktionsnivåer var något som jag inte hade tänkt på öve
 
 Att det däremot skulle vara mindre önskvärt att ta emot argument i en metod hade jag svårt att förstå från början. Jag skapade därför först en vanlig modul, men övergick sedan till att göra om den till en klass där jag kunde spara olika privata fält som mina metoder kunde anropa utan att behöva ta emot argument varje gång. Endast fyra av mina sjutton publika metoder tar emot argument, vilket jag är nöjd med. Jag håller även med om att inte ta emot argument underlättar testningen och att det inte finns en risk att argument skickas in i fel format eller fel ordning.
 
-## Reflektion kring uppgiften
+## Övergripande reflektion
 Jag tycker att boken är väldigt intressant och pedagogiskt skriven. Det är även uppfriskande med en bok som har lite humor. 
 
 Koncepten fån kapitel 2 kändes enklast att ta in, troligtvis eftersom namngivning är enklare att ”ta på” än funktioner. Som jag redan har skrivit håller jag inte helt med om författarens syn på exakt hur små funktioner ska vara. Däremot kommer dessa två kapitel ha inverkan på hur jag namnger och skriver framtida funktioner.
