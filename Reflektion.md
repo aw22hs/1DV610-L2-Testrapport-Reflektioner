@@ -43,12 +43,34 @@ Tidigare har jag givetvis lagt tid på att försöka hitta ett bra namn, men kan
 
 | Metodnamn och länk eller kod | Antal rader | Reflektion |
 |------------------------------|-------------|------------|
+| **replaceWordsWithTwoDifferentFormattings(wordToReplace, newWord)** | 26 | **Don’t Repeat Yourself** |
+| | | I denna metod repeteras kod där både ```wordToReplace``` och ```newWord``` görs om till olika format och sen läggs in i en array. Detta hade kunnat göras via en egen metod som returnerar en array istället. |
+| | | **Function Arguments** |
+| | | Metoden har två argument (dyadic), vilket bör undvikas enligt boken. Jag hade kunnat skapa klassen ```Word``` och anropa två instanser av den istället, men jag ser inte riktigt poängen med det. Jag ser inte att det skulle vara så fel att använda två argument som författaren menar. |
 | **getLetterCountDifferenceBetweenOriginalAndUpdatedText()** | 21 | **Small!** |
-| | | En funktion ska vara liten och en if-sats borde bara ha en rad med kod i sig, förslagsvis bestående av ett funktionsanrop. I denna funktion finns en if-sats som har ytterligare en if-sats inuti sig. Den inre if-satsen behöver inte ligger inuti den ytter if-satsen. |
+| | | En funktion ska vara liten och en if-sats borde bara ha en rad med kod i sig, förslagsvis bestående av ett funktionsanrop. I denna funktion finns en if-sats som har ytterligare en if-sats inuti sig. Den inre if-satsen behöver inte ligger inuti den ytter if-satsen. Hela funktionen i sig kan även göras mindre, se nedan. |
 | | | **Do One Thing** |
-| | | Denna funktion har många retursatser och göra många saker. Den kan göras om till tre funktioner. En funktion som heter ```isOriginalTextAndUpdatedTextSame()``` som returnerar en boolean. En funktion som heter ```isUpdatedText()``` som kontrollerar om något ord har blivit utbytt (this.#updatedTextWithReplacedWords existerar) och returnerar en boolean. Sen går det att ha behålla namnet på denna funktion och göra så att den returnerar den faktiska längdskillnaden som ett nummer och då t ex alltid säga hur många tecken längre eller kortare originaltexten är jämfört med den uppdaterade texten. |
-| countNotEmptyLines 11 | | |
-| countNonEmptyLinesWithoutJSComments 11 | | |
-| replaceWordsWithTwoDifferentFormattings | | |
-| replaceWordsWithExactFormatting | | |
-| #countAndSortInAlphabeticalOrder 19 | | |
+| | | Denna gör många saker. Den kan göras om till tre funktioner. En funktion som heter ```isOriginalTextAndUpdatedTextSame()``` som returnerar en boolean. En funktion som heter ```isUpdatedText()``` som kontrollerar om något ord har blivit utbytt (dvs ```this.#updatedTextWithReplacedWords``` existerar) och som returnerar en boolean. Sen går det att ha behålla namnet på denna funktion och göra så att den returnerar den faktiska längdskillnaden som ett nummer och då t ex alltid säga hur många tecken längre eller kortare originaltexten är jämfört med den uppdaterade texten. |
+| | | **Structured Programming** |
+| | | Enligt Edsger Dijkstra bör det endast finnas en väg ut ur en metod, dvs en retursats. Denna metod har fyra retursatser. |
+| **countNotEmptyLines()** | 12 | **Use Descriptive Names** |
+| | | Beskriver tydligt att den räknar alla rader som inte är tomma. Borde däremot ha hetat ```getNotEmptyLinesCount```. |
+| | | **Reading Code from Top to Bottom: The Stepdown Rule** |
+| | | Eftersom vissa av mina metoder anropar samma metod är det inte möjligt att göra koden läsbar från "top to bottom". Jag har därför valt att lägga de publika metoderna överst i bokstavsordning och därefter de privata metoderna i bokstavsordning. |
+| | | **Function Arguments** |
+| | | Genom att använda det privata fältet ```this.#trimmedLines``` behöver inga argument användas i metoden (niladic). |
+| **countNonEmptyLinesWithoutJSComments()** | 12 | **Use Descriptive Names** |
+| | | Lite otydligt vad ```JSComments``` betyder om man inte vet vad JavaScript är, men de flesta (alla?) utvecklare bör känna till det. Metoden riktar sig inte heller specifikt mot JavaScript-kommentarer, utan räknar alla rader som inte är tomma samt rader inte som börjar med tecknena * eller /. Hade behövt delas upp i flera metoder för att kunna få bättre namn, men med relativt få kodrader känns det överflödigt. |
+| | | **One Level of Abstraction per Function** |
+| | | Denna metod har två olika abstraktionsnivåer då if-satsen under vissa förutsättningar gör ett metodanrop ```this.#trimmedLines``` och övriga rader kod i metoden är på en lägre abstraktionsnivå. |
+| **countNotEmptyLines()** | 12 | **Don’t Repeat Yourself** |
+| | | Denna metod gör i stort sett samma sak som ```**countNonEmptyLinesWithoutJSComments()**``` och går därför emot DRY-principen. Dessa två metoder bör istället anropa en tredje metod med respektive logiskt uttryck som skiljer de två metoderna åt. |
+| | | **Have No Side Effects** |
+| | | Om arrayen ```this.#trimmedLines``` är tom anropas metoden ```this.#splitTextIntoTrimmedLines()``` som fyller arrayen med element. Det är en sidoeffekt som inte framgår av något av metodnamnen.
+
+### Reflektioner kring kapitel 3  
+Den största behållningen från kapitel 3 är att funktionerna ska vara små. Som junior utvecklare ställer jag mig dock försiktigt skeptisk till hur bokens exempel drar detta till sin spets. Jag kan se hur det är lättare att både översätta modulen till ett annat språk samt att det gör modulen enklare att expandera, men jag anser inte att koden blir mer lättläst. Flödet i läsandet av koden bli mindre läsbar då jag upplever att det är svårt att komma ihåg hur anropet började. Större metoder, i viss utsträckning, är därför att föredra enligt mig, men jag ser absolut att det finns en poäng i att inte skriva metoder som är alldeles för stora. Efter att ha gjort denna laboration kommer jag ta för vana att försöka skriva mindre metoder som riktar sig mer mot att göra en sak, men inte till varje pris.
+
+Att inte blanda abstraktionsnivåer var något som jag inte hade tänkt på överhuvudtaget tidigare och där ställer jag mig också lite skeptisk, men då det går i linje med att en metod ska göra en sak kan jag köpa konceptet.
+
+Att det däremot skulle vara mindre önskvärt att ta emot argument i en metod hade jag svårt att förstå från början. Jag skapade därför först en vanlig modul, men övergick sedan till att göra om den till en klass där jag kunde spara olika privata fält som mina metoder kunde anropa utan att behöva ta emot argument varje gång. Endast fyra av mina sjutton publika metoder tar emot argument, vilket jag är nöjd med. Jag håller även med om att inte ta emot argument underlättar testningen och att det inte finns en risk att argument skickas in i fel format eller fel ordning. 
