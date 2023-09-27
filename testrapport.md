@@ -210,7 +210,7 @@ Tidigare har jag givetvis lagt tid på att försöka hitta ett bra namn, men kan
 | | | **One Level of Abstraction per Function** |
 | | | Denna metod har två olika abstraktionsnivåer då if-satsen under vissa förutsättningar gör ett metodanrop ```this.#trimmedLines``` och övriga rader kod i metoden är på en lägre abstraktionsnivå. |
 | **countNotEmptyLines()** | 12 | **Don’t Repeat Yourself** |
-| | | Denna metod gör i stort sett samma sak som ```**countNonEmptyLinesWithoutJSComments()**``` och går därför emot DRY-principen. Dessa två metoder bör istället anropa en tredje metod som tar emot respektive logiskt uttryck (vilket är det som skiljer de två metoderna åt) som ett argument. |
+| | | Denna metod gör i stort sett samma sak som ```countNonEmptyLinesWithoutJSComments()``` och går därför emot DRY-principen. Dessa två metoder bör istället anropa en tredje metod som tar emot respektive logiskt uttryck (vilket är det som skiljer de två metoderna åt) som ett argument. |
 | | | **Have No Side Effects** |
 | | | Om arrayen ```this.#trimmedLines``` är tom anropas metoden ```this.#splitTextIntoTrimmedLines()``` som fyller arrayen med element. Det är en sidoeffekt som inte framgår av något av metodnamnen. |
 
