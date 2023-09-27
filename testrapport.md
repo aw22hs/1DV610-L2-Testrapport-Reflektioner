@@ -9,7 +9,7 @@ Modulen har endast testats med automatiska tester. Testningen har utförts med J
 ```
 För att starta testerna används således kommandot ```npm test```.  
 
-Testerna består av en testsvit med totalt 94 deltester som är uppdelade enligt de 17 publika metoder som anropas av testerna, se nedan. Samtliga tester är godkända i v.1.0.0 av modulen.
+Testerna består av en testsvit med totalt 94 deltester som är uppdelade enligt de 16 publika metoder som anropas av testerna, se nedan. Samtliga tester är godkända i v.1.0.0 av modulen.
 
 I mappen 'testdata' finns två filer, exampleCode.js och loremIpsum.md. Innehållet i dessa filer används som argument vid skapandet av två olika instanser av modulen som används under testningen.
 
@@ -219,4 +219,4 @@ Den största behållningen från kapitel 3 är att funktionerna ska vara små. S
 
 Att inte blanda abstraktionsnivåer var något som jag inte hade tänkt på överhuvudtaget tidigare och där ställer jag mig också lite skeptisk, men då det går i linje med att en metod ska göra en sak kan jag köpa konceptet.
 
-Att det däremot skulle vara mindre önskvärt att ta emot argument i en metod hade jag svårt att förstå från början. Jag skapade därför först en vanlig modul, men övergick sedan till att göra om den till en klass där jag kunde spara olika privata fält som mina metoder kunde anropa utan att behöva ta emot argument varje gång. Endast fyra av mina sjutton publika metoder tar emot argument, vilket jag är nöjd med. Jag håller även med om att inte ta emot argument underlättar testningen och att det inte finns en risk att argument skickas in i fel format eller fel ordning.
+Att det däremot skulle vara mindre önskvärt att ta emot argument i en metod hade jag svårt att förstå från början. Jag skapade därför först en vanlig modul, men övergick sedan till att göra om den till en klass där jag kunde spara olika privata fält som mina metoder kunde anropa utan att behöva ta emot argument varje gång. Endast fyra av mina sexton publika metoder tar emot argument, vilket jag är nöjd med. Jag håller även med om att inte ta emot argument underlättar testningen och att det inte finns en risk att argument skickas in i fel format eller fel ordning.
